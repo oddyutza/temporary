@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "7533e3af-7510-48a6-a96d-560303c40c10",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28067919"
+	},
+	"item": [
+		{
+			"name": "INTEGRATION DIGI SPAIN",
+			"item": [
+				{
+					"name": "Get Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"pm.environment.set(\"integrationToken\", data.access_token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dmsdigieskc.simartis.com/realms/dms/protocol/openid-connect/token",
+							"protocol": "https",
+							"host": [
+								"dmsdigieskc",
+								"simartis",
+								"com"
+							],
+							"path": [
+								"realms",
+								"dms",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Local Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{integrationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dmsdigiesapi.simartis.com:8080/integration/api/subscriber/34643001022",
+							"protocol": "https",
+							"host": [
+								"dmsdigiesapi",
+								"simartis",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"integration",
+								"api",
+								"subscriber",
+								"34643001022"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send External Settings for Msisdn, Imsi and Imei",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{integrationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"source\": \"API\",\r\n    \"msisdn\": \"34643001022\",\r\n    \"imei\": \"35074486123456\",\r\n    \"imsi\": \"226102303079047\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dmsdigiesapi.simartis.com/integration/api/sendSettings",
+							"protocol": "https",
+							"host": [
+								"dmsdigiesapi",
+								"simartis",
+								"com"
+							],
+							"path": [
+								"integration",
+								"api",
+								"sendSettings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send External Settings for Msisdn",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{integrationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"source\": \"API\",\r\n    \"msisdn\": \"34643001022\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dmsdigiesapi.simartis.com/integration/api/sendSettings/msisdn",
+							"protocol": "https",
+							"host": [
+								"dmsdigiesapi",
+								"simartis",
+								"com"
+							],
+							"path": [
+								"integration",
+								"api",
+								"sendSettings",
+								"msisdn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{integrationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dmsdigiesapi.simartis.com/integration/api/report/status/7",
+							"protocol": "https",
+							"host": [
+								"dmsdigiesapi",
+								"simartis",
+								"com"
+							],
+							"path": [
+								"integration",
+								"api",
+								"report",
+								"status",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
